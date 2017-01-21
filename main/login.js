@@ -137,7 +137,16 @@ class Login extends Component{
       }
     });
   }
-
+  sendSignal(){
+    
+    console.log('inside send')
+    if (this.state.isPlaying === true) {
+        firebase.database().ref('status').set({playing: 0});
+      } else {
+        console.log('hi')
+        firebase.database().ref('status').set({playing: 1});
+      }
+  }
   returnVideoId(url){
     var id = url.match(/(?:https?:\/{2})?(?:w{3}\.)?youtu(?:be)?\.(?:com|be)(?:\/watch\?v=|\/)([^\s&]+)/);
     return id[1];
@@ -172,7 +181,7 @@ class Login extends Component{
       </View>
 
         <TouchableHighlight style={styles.button}  underlayColor='transparent'
-        onPress={()=>{this.setState((s) => {this.setState({isPlaying: !s.isPlaying})}  )}}>
+        onPress={()=>{this.sendSignal()}}>
           <View/>
         </TouchableHighlight>
 
