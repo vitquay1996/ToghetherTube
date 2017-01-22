@@ -1,7 +1,7 @@
 'use strict';
 
 const {AppRegistry} = require('react-native');
-const Login = require('./main/login.js')
+const Main = require('./main/login.js')
 
 
 
@@ -40,7 +40,7 @@ export default class ToghetherTube extends Component {
       <NavigatorIOS
       initialRoute={{
         name: 'Login',
-        component: Login,
+        component: Main,
         title: 'Log In',
 
       }}
