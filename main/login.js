@@ -2,6 +2,20 @@
 
 // var Signup = require('./Signup');
 // var grabUser = require('../Model/grabUser');
+import { 
+  Container, 
+  Header, 
+  Title, 
+  Content, 
+  Text, 
+  InputGroup, 
+  Input, 
+  Icon, 
+  Button ,
+  Card,
+  CardItem,
+  H3,
+} from 'native-base';
 
 var firebase = require('../Model/firebase');
 const styles = require('../style/style')
@@ -9,7 +23,7 @@ import YouTube from 'react-native-youtube';
 import React, { Component } from 'react';
 import {
 	StyleSheet,
-	Text,
+
 	View,
 
   Dimensions,
@@ -158,9 +172,13 @@ class Login extends Component{
 
 
 			<View style={styles.container}>
+      <Header >
+      
+      <Title>Room</Title>
 
+      </Header>
       <View >
-        <Text style={styles.title}>TogetherTube </Text>
+      
         <Text >{this.state.status}</Text>
         <YouTube
             ref="youtubePlayer"
@@ -184,13 +202,11 @@ class Login extends Component{
         onPress={()=>{this.sendSignal()}}>
           <View/>
         </TouchableHighlight>
+        <Button large rounded block transparent onPress={()=>{this.refs.youtubePlayer.seekTo(60)}}>
+        <Text>Hi</Text>
+        </Button>
 
-
-      <Text style={styles.instructions}>{this.state.isReady ? 'Player is ready.' : 'Player setting up...'}</Text>
-        <Text style={styles.instructions}>Status: {this.state.isPlaying ? 'hi' : 'nope'}</Text>
-        <Text style={styles.instructions}>Quality: {this.state.quality}</Text>
-        <Text style={styles.instructions}>{this.state.error ? 'Error: ' + this.state.error : ' '}</Text>
-
+      
 
       </View>
 
