@@ -2,15 +2,15 @@
 
 // var Signup = require('./Signup');
 // var grabUser = require('../Model/grabUser');
-import { 
-  Container, 
-  Header, 
-  Title, 
-  Content, 
-  Text, 
-  InputGroup, 
-  Input, 
-  Icon, 
+import {
+  Container,
+  Header,
+  Title,
+  Content,
+  Text,
+  InputGroup,
+  Input,
+  Icon,
   Button ,
   Card,
   CardItem,
@@ -46,7 +46,7 @@ class Main extends Component{
     super(props);
 
     this.state = {
-    
+
       rooms:[],
       noRoom: true,
       isLoading: true
@@ -72,7 +72,7 @@ class Main extends Component{
 
   render(){
     return(
-      <View style={styles.container}> 
+      <View style={styles.container}>
         {this.state.isLoading ? <Spinner style={{alignSelf: 'center',top:300}}color='red'/> :
         <View style={styles.container}>
           {this.state.noRoom ? <CreateRoomView navigator={this.props.navigator}/> : <ListOfRooms rooms={this.state.rooms} navigator={this.props.navigator}/> }
@@ -130,7 +130,7 @@ class ListOfRooms extends Component{
       selectedItem: undefined,
       isLoading: false,
       refreshing: false,
-      
+
     }
   }
 
@@ -188,9 +188,9 @@ class ListOfRooms extends Component{
     return (
       <View style={styles.row}>
         <TouchableHighlight underlayColor='transparent' onPress={()=>{this.joinRoom(room)}}>
-          <View style={{flexDirection:'row'}}>  
-            <Thumbnail square size={80} style={{marginBottom:10}} sty  /> 
-            <View style={{flexDirection:'column', marginLeft:20}}>       
+          <View style={{flexDirection:'row'}}>
+            <Thumbnail square size={80} style={{marginBottom:10}} sty  />
+            <View style={{flexDirection:'column', marginLeft:20}}>
             <Text>Name: <Text style={{fontWeight: '600', color: 'black',alignSelf:'center'}}>{room.name}</Text></Text>
             </View>
           </View>
@@ -207,7 +207,7 @@ class ListOfRooms extends Component{
         <Header>
           <Title>List of rooms</Title>
         </Header>
-      <ScrollView style={styles.scrollview} 
+      <ScrollView style={styles.scrollview}
       refreshControl={
         <RefreshControl
         refreshing={this.state.refreshing}
@@ -221,7 +221,7 @@ class ListOfRooms extends Component{
 
 
 
-       
+
 
 
 
@@ -270,7 +270,8 @@ class Login extends Component{
       }
       if (state.synch > this.state.synch){
         this.state.synch = state.synch;
-        this.refs.youtubePlayer.seekTo(state.time);
+        if (this.refs.youtubePlayer)
+          this.refs.youtubePlayer.seekTo(state.time);
         console.log('Synched')
 
       }
@@ -300,13 +301,13 @@ class Login extends Component{
   }
 
   requestSynch(){
-   
-    
+
+
     firebase.database().ref('rooms/' + this.props.name).set({name: this.props.name, playing: 1, synch: this.state.synch + 1,time: this.state.time, videoId: this.state.videoId});
   }
 
   getVideo(){
-    this.setState({videoId:this.returnVideoId(this.state.url)}) 
+    this.setState({videoId:this.returnVideoId(this.state.url)})
     firebase.database().ref('rooms/' + this.props.name).set({name: this.props.name,playing: 1,synch: 0,time: this.state.time, videoId: this.returnVideoId(this.state.url)});
   }
   _goBack(){
