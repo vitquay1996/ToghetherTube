@@ -306,8 +306,8 @@ class Login extends Component{
   }
 
   getVideo(){
-    var id = this.returnVideoId(this.state.url)
-    firebase.database().ref('rooms/' + this.props.name).set({name: this.props.name,playing: 1,synch: this.state.synch + 1,time: this.state.time, videoId: id});
+    this.setState({videoId:this.returnVideoId(this.state.url)}) 
+    firebase.database().ref('rooms/' + this.props.name).set({name: this.props.name,playing: 1,synch: this.state.synch + 1,time: this.state.time, videoId: this.state.videoId});
   }
   _goBack(){
     this.props.navigator.pop();
