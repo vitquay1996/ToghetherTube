@@ -99,7 +99,7 @@ class CreateRoomView extends Component{
             name: 'Room',
             title: 'Room',
             component: Login,
-            passProps: {name: text}
+            passProps: {name: text,room:{playing: 0,synch: 0, videoId: '-dwGEwaCTbA',name: text}}
           })
         }
     );
@@ -178,7 +178,7 @@ class ListOfRooms extends Component{
       name: 'room',
       title: 'room',
       component: Login,
-      passProps:{name: room.name}
+      passProps:{name: room.name,room: room}
     })
   }
 
@@ -249,7 +249,7 @@ class Login extends Component{
       synch: 0,
       time: 0,
       url: '',
-      videoId: '',
+      videoId: this.props.room.videoId,
 
     };
 
@@ -276,7 +276,7 @@ class Login extends Component{
       }
 
       if (state.videoId !== this.state.videoId){
-        this.setState({videoId: state.videoId,isPlaying:0})
+        this.setState({videoId: state.videoId,isPlaying: false})
       }
     })
 
@@ -300,12 +300,9 @@ class Login extends Component{
   }
 
   requestSynch(){
-    var id = '';
-    firebase.database().ref('rooms/' + this.props.name).once('value').then((snap)=> {
-      id = snap.val().videoId;
-    })
+   
     
-    firebase.database().ref('rooms/' + this.props.name).set({name: this.props.name, playing: 1, synch: this.state.synch + 1,time: this.state.time, videoId: id});
+    firebase.database().ref('rooms/' + this.props.name).set({name: this.props.name, playing: 1, synch: this.state.synch + 1,time: this.state.time, videoId: this.state.videoId});
   }
 
   getVideo(){
